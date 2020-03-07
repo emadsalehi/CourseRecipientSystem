@@ -35,4 +35,8 @@ public class UserDetail {
     String getPassword() {
         return password;
     }
+
+    public List<CourseDetail> getUserCourses() {
+        return userCourses;
+    }
 }

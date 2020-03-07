@@ -88,7 +88,12 @@ class ServerUtils {
         return CourseResponse.NOT_FOUND;
     }
 
-
+    String showUserCourses() {
+        StringBuilder courseListBuilder = new StringBuilder();
+        for (CourseDetail course : activeUser.getUserCourses())
+            courseListBuilder.append(course.toString()).append("\n");
+        return courseListBuilder.toString();
+    }
 
     private void updateDatabaseFile() {
         try {
