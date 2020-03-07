@@ -9,7 +9,7 @@ class CourseDetail {
     private int courseEndHour;
 
     CourseDetail(String databaseLine) {
-        String[] params = databaseLine.split("\t+");
+        String[] params = databaseLine.split("\\s+");
         courseName = params[0];
         registrationCount = Integer.parseInt(params[1]);
         courseCapacity = Integer.parseInt(params[2]);

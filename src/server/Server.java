@@ -1,10 +1,11 @@
 package server;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.Scanner;
 
 public class Server {
 
@@ -13,10 +14,11 @@ public class Server {
             ServerUtils serverUtils = new ServerUtils();
             ServerSocket serverSocket = new ServerSocket(1234);
             Socket socket = serverSocket.accept();
-            Scanner scanner = new Scanner(socket.getInputStream());
+            System.out.println("Connected");
+            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             OutputStreamWriter outputStreamWriter = new OutputStreamWriter(socket.getOutputStream());
             while (true) {
-                String query = scanner.next();
+                String query = bufferedReader.readLine();
                 String queryInput = "";
                 int openParIndex = query.indexOf('(');
                 int closeParIndex = query.indexOf(')');
@@ -40,6 +42,7 @@ public class Server {
                         outputStreamWriter.write("Username already taken!\n");
                         outputStreamWriter.flush();
                     }
+                    System.out.println("SignUp Done");
                 } else if (query.contains("Login")) {
                     String[] params = queryInput.split(",");
                     boolean result = serverUtils.login(params[0].trim(), params[1].trim());
@@ -50,6 +53,7 @@ public class Server {
                         outputStreamWriter.write("Wrong username or password!\n");
                         outputStreamWriter.flush();
                     }
+                    System.out.println("Login Done");
                 } else if (query.equals("Help")) {
                     outputStreamWriter.write("Enter \'Help\' to get help!\n");
                     outputStreamWriter.flush();
@@ -61,7 +65,7 @@ public class Server {
                     }
                     if (query.equals("ViewList")) {
                         String courseList = serverUtils.getCourseList();
-                        outputStreamWriter.write(courseList + "\n");
+                        outputStreamWriter.write(courseList);
                         outputStreamWriter.flush();
                     } else if (query.contains("TakeCourse")) {
                         CourseResponse response = serverUtils.takeCourse(queryInput);
@@ -70,7 +74,7 @@ public class Server {
                         CourseResponse response = serverUtils.dropCourse(queryInput);
                         sendMessageByResponse(outputStreamWriter, response);
                     } else if (query.equals("MyCourse")) {
-                        outputStreamWriter.write(serverUtils.showUserCourses() + "\n");
+                        outputStreamWriter.write(serverUtils.showUserCourses());
                         outputStreamWriter.flush();
                     } else if (query.equals("Logout")) {
                         serverUtils.logout();
