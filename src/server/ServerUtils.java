@@ -95,6 +95,10 @@ class ServerUtils {
         return courseListBuilder.toString();
     }
 
+    void logout() {
+        activeUser = null;
+    }
+
     private void updateDatabaseFile() {
         try {
             BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(FILE_ADDRESS, false));
