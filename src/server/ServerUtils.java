@@ -70,6 +70,26 @@ class ServerUtils {
         return CourseResponse.NOT_FOUND;
     }
 
+    CourseResponse dropCourse(String courseName) {
+        for (CourseDetail course : courseDetails) {
+            if (course.getCourseName().equals(courseName)) {
+                if (course.getCourseCapacity() == course.getRegistrationCount()) {
+                    return CourseResponse.FULL;
+                } else {
+                    CourseResponse response = activeUser.removeUserCourse(course);
+                    if (response == CourseResponse.DONE) {
+                        course.drop();
+                        updateDatabaseFile();
+                    }
+                    return response;
+                }
+            }
+        }
+        return CourseResponse.NOT_FOUND;
+    }
+
+
+
     private void updateDatabaseFile() {
         try {
             BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(FILE_ADDRESS, false));

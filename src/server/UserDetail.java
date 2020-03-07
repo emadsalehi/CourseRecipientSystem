@@ -18,6 +18,16 @@ public class UserDetail {
         userCourses.add(course);
     }
 
+    CourseResponse removeUserCourse(CourseDetail course) {
+        for (int i = 0; i < userCourses.size(); i++) {
+            if (userCourses.get(i).getCourseName().equals(course.getCourseName())) {
+                userCourses.remove(i);
+                return CourseResponse.DONE;
+            }
+        }
+        return CourseResponse.NOT_FOUND;
+    }
+
     String getUserName() {
         return userName;
     }

@@ -21,6 +21,10 @@ class CourseDetail {
         registrationCount++;
     }
 
+    void drop() {
+        registrationCount--;
+    }
+
     String getCourseName() {
         return courseName;
     }
