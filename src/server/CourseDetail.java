@@ -1,6 +1,6 @@
 package server;
 
-public class CourseDetail {
+class CourseDetail {
 
     private String courseName;
     private int registrationCount;
@@ -8,8 +8,8 @@ public class CourseDetail {
     private int courseStartHour;
     private int courseEndHour;
 
-    public CourseDetail(String databaseLine) {
-        String[] params = databaseLine.split("\t");
+    CourseDetail(String databaseLine) {
+        String[] params = databaseLine.split("\t+");
         courseName = params[0];
         registrationCount = Integer.parseInt(params[1]);
         courseCapacity = Integer.parseInt(params[2]);
