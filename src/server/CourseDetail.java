@@ -16,4 +16,25 @@ class CourseDetail {
         courseStartHour = Integer.parseInt(params[3].split("-")[0]);
         courseEndHour = Integer.parseInt(params[3].split("-")[1]);
     }
+
+    void register() {
+        registrationCount++;
+    }
+
+    String getCourseName() {
+        return courseName;
+    }
+
+    int getRegistrationCount() {
+        return registrationCount;
+    }
+
+    int getCourseCapacity() {
+        return courseCapacity;
+    }
+
+    @Override
+    public String toString() {
+        return courseName + "\t" + registrationCount + "\t" + courseCapacity + "\t" + courseStartHour + "-" + courseEndHour;
+    }
 }
